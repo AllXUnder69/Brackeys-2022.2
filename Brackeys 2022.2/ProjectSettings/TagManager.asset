@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Jumpable
+  - Camera Collider
+  - Player
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 641059813
+    locked: 0
+  - name: Wall
+    uniqueID: 381269093
+    locked: 0
+  - name: Player
+    uniqueID: 1232174841
     locked: 0
