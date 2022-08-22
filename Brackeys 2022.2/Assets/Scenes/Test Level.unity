@@ -704,34 +704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2649cc701c711e40bd261fe905e4a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds: {x: 7.5, y: 7.21}
-  OnTriggerEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2035581484}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: Stop
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Test Song
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2035581484}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Epic Song
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!61 &1170192519
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1204,24 +1176,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4154a89f34f3744baf1452b26b96d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: Test Song
-    clip: {fileID: 8300000, guid: 80100cd22acad0e4dbad011ede327e4d, type: 3}
-    volume: 0.495
-    pitch: 1
-    playOnAwake: 1
-    playOnRandom: 0
-    environment3D: 0
-    loop: 1
-    DDOL: 0
-    source: {fileID: 0}
-  - name: Epic Song
-    clip: {fileID: 8300000, guid: 3e3a11e076039ea4f98bab9ae4d374b0, type: 3}
-    volume: 0.138
-    pitch: 1
-    playOnAwake: 0
-    playOnRandom: 0
-    environment3D: 0
-    loop: 1
-    DDOL: 0
-    source: {fileID: 0}
