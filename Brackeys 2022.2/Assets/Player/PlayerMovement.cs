@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump && isGrounded)
             rb.AddForce(Vector2.up * jumpHeight * rb.mass, ForceMode2D.Impulse);
+            //rb.velocity += Vector2.up * jumpHeight * rb.mass;
 
         if (!isGrounded && rb.velocity.y < 0f)
             rb.velocity += Vector2.down * gravityMultiplier;

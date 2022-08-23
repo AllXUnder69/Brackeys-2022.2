@@ -10,7 +10,9 @@ public class MovingPlatform : MonoBehaviour
     public Vector2 TargetPos => initPos + targetPos;
 
     [Space]
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private float waitTime = 0.5f;
+    float elapsedTime = 0f;
 
     [SerializeField] bool hasReachedDestination = false;
 
@@ -39,14 +41,29 @@ public class MovingPlatform : MonoBehaviour
 
         if (CheckIfReached(destination))
         {
-            SwapDestination();
+            if (elapsedTime >= waitTime)
+            {
+                SwapDestination();
+
+                elapsedTime = 0f;
+            }
+            else
+                elapsedTime += Time.deltaTime;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);   
+        //transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);   
+        //GetComponent<Rigidbody2D>().velocity = destination.normalized * speed * Time.deltaTime;
+    }
+    void FixedUpdate()
+    {
+        rb.MovePosition(Vector2.MoveTowards(transform.position, destination, speed / 10f));
+        
     }
     void OnCollisionStay2D(Collision2D collision)
     {
+        //collision.transform.position = new (transform.position.x, collision.transform.position.y);
         collision.transform.SetParent(transform);
+
     }
     void OnCollisionExit2D(Collision2D collision)
     {
