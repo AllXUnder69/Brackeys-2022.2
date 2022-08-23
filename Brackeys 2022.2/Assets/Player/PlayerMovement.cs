@@ -26,10 +26,6 @@ public class PlayerMovement : MonoBehaviour
     {
         UpdateInput();
 
-        if (jump && isGrounded)
-            rb.AddForce(Vector2.up * jumpHeight * rb.mass, ForceMode2D.Impulse);
-            //rb.velocity += Vector2.up * jumpHeight * rb.mass;
-
         if (!isGrounded && rb.velocity.y < 0f)
             rb.velocity += Vector2.down * gravityMultiplier;
 
@@ -40,9 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
-    void FixedUpdate()
-    {
-    }
 
     void UpdateInput()
     {
@@ -51,5 +44,11 @@ public class PlayerMovement : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
 
         jump = Input.GetButtonDown("Jump");
+    }
+
+    public void Jump()
+    {
+        if (isGrounded)
+            rb.AddForce(Vector2.up * jumpHeight * rb.mass, ForceMode2D.Impulse);
     }
 }
