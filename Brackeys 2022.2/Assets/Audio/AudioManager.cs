@@ -77,6 +77,9 @@ public class AudioManager : MonoBehaviour
         //Find and Return the sound in the declared sounds array by its name
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
+        if (s.source.isPlaying)
+            return;
+
         //Return error if no sound with that name is found in the sounds array
         if (s == null)
         {

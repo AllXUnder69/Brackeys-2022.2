@@ -3,94 +3,40 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private bool refresh;
+    [SerializeField] Vector2[] position = new Vector2[2];
+    [SerializeField] float speed = 10;
 
-    [SerializeField] private Vector2 initPos;
-    [SerializeField] private Vector2 targetPos;
-    public Vector2 TargetPos => initPos + targetPos;
+    int goal = 0;
 
-    [Space]
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private float waitTime = 0.5f;
-    float elapsedTime = 0f;
-
-    [SerializeField] bool hasReachedDestination = false;
-
-    [SerializeField] Vector2 destination;
-    Rigidbody2D rb;
-    void OnValidate()
+    private void Update()
     {
-        if (refresh)
-            refresh = false;
+        if ((Vector2)transform.position == position[goal]) goal = (goal + 1) % position.Length;
 
-        initPos = transform.position;
-    }
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-
-        initPos = transform.position;
-
-        destination = initPos;
-    }
-    void Update()
-    {
-        hasReachedDestination = CheckIfReached(destination);    
-
-        if (CheckIfReached(destination))
-        {
-            if (elapsedTime >= waitTime)
-            {
-                SwapDestination();
-
-                elapsedTime = 0f;
-            }
-            else
-                elapsedTime += Time.deltaTime;
-        }
-
-        //transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);   
-        //GetComponent<Rigidbody2D>().velocity = destination.normalized * speed * Time.deltaTime;
-    }
-    void FixedUpdate()
-    {
-        rb.MovePosition(Vector2.MoveTowards(transform.position, destination, speed / 10f));
-        
-    }
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        //collision.transform.position = new (transform.position.x, collision.transform.position.y);
-        collision.transform.SetParent(transform);
-
-    }
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        collision.transform.SetParent(null);
+        transform.position = Vector2.MoveTowards(transform.position, position[goal], speed * Time.deltaTime);
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(TargetPos, 0.2f);
-        Gizmos.DrawWireSphere(initPos, 0.2f);
+        Gizmos.DrawLine(position[0], position[position.Length - 1]);
+        for (int i = 0; i < position.Length - 1; i++)
+        {
+            Gizmos.DrawLine(position[i], position[i + 1]);
+        }
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(initPos, TargetPos);
+        Gizmos.color = Color.red;
+        for (int i = 0; i < position.Length; i++)
+        {
+            Gizmos.DrawWireSphere(position[i], 1);
+        }
     }
 
-    void SwapDestination()
+    [ContextMenu("BringPositionsToLocal")]
+    void BringPositionsToLocal()
     {
-        //parvonachalno destination = initPos
-        if (destination == initPos)
-            destination = TargetPos;
-        else if (destination == TargetPos)
-            destination = initPos;
-    }
-
-    bool CheckIfReached(Vector2 vector)
-    {
-        return ((Vector2)transform.position - vector).magnitude < 1f;
+        for (int i = 0; i < position.Length; i++)
+        {
+            position[i] += (Vector2)transform.position;
+        }
     }
 }

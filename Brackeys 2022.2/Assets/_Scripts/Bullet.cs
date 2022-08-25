@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private UnityEngine.Events.UnityEvent OnCollisionEvent;
 
-    public int bulletDamage;
+    public int BulletDamage { get; set; }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
         print(health != null);
 
         if (health != null)
-            health.TakeDamage(bulletDamage);
+            health.TakeDamage(BulletDamage);
 
         Destroy(gameObject);
     }
