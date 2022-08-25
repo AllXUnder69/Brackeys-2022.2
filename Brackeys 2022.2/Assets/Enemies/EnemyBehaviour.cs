@@ -16,13 +16,13 @@ public class EnemyBehaviour : MonoBehaviour
     float elapsedTime = 0f;
     [SerializeField] bool initialShot = true;
 
-    void Start()
+    public virtual void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
 
         bullet.GetComponent<Bullet>().bulletDamage = enemy.damage;
     }
-    void Update()
+    public virtual void Update()
     {
         gun.LookAt(player, Vector3.right);
 

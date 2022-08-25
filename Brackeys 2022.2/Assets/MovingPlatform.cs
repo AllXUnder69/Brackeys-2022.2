@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    [SerializeField] private bool refresh;
+    [SerializeField] Vector2[] position = new Vector2[2];
+    [SerializeField] float speed = 10;
 
-    [SerializeField] private Vector2 initPos;
-    [SerializeField] private Vector2 targetPos;
-    public Vector2 TargetPos => initPos + targetPos;
+    int goal = 0;
 
+<<<<<<< Updated upstream:Brackeys 2022.2/Assets/MovingPlatform.cs
     [Space]
     [SerializeField] private float speed;
 
@@ -17,28 +17,22 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] Vector2 destination;
     Rigidbody2D rb;
     void OnValidate()
+=======
+    private void Update()
+>>>>>>> Stashed changes:Brackeys 2022.2/Assets/_Scripts/MovingPlatform.cs
     {
-        if (refresh)
-            refresh = false;
+        if ((Vector2)transform.position == position[goal]) goal = (goal + 1) % position.Length;
 
-        initPos = transform.position;
+        transform.position = Vector2.MoveTowards(transform.position, position[goal], speed * Time.deltaTime);
     }
-    void Start()
+
+    private void OnDrawGizmos()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-
-        initPos = transform.position;
-
-        destination = initPos;
-    }
-    void Update()
-    {
-        hasReachedDestination = CheckIfReached(destination);    
-
-        if (CheckIfReached(destination))
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(position[0], position[position.Length - 1]);
+        for (int i = 0; i < position.Length - 1; i++)
         {
+<<<<<<< Updated upstream:Brackeys 2022.2/Assets/MovingPlatform.cs
             SwapDestination();
         }
 
@@ -70,10 +64,24 @@ public class MovingPlatform : MonoBehaviour
             destination = TargetPos;
         else if (destination == TargetPos)
             destination = initPos;
+=======
+            Gizmos.DrawLine(position[i], position[i + 1]);
+        }
+
+        Gizmos.color = Color.red;
+        for (int i = 0; i < position.Length; i++)
+        {
+            Gizmos.DrawSphere(position[i], 1);
+        }
+>>>>>>> Stashed changes:Brackeys 2022.2/Assets/_Scripts/MovingPlatform.cs
     }
 
-    bool CheckIfReached(Vector2 vector)
+    [ContextMenu("BringPositionsToLocal")]
+    void BringPositionsToLocal()
     {
-        return ((Vector2)transform.position - vector).magnitude < 1f;
+        for (int i = 0; i < position.Length; i++)
+        {
+            position[i] += (Vector2)transform.position;
+        }
     }
 }
