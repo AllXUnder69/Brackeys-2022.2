@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330198a5cba461945b37cd1a7110789a, type: 3}
   m_Name: Static Enemy
   m_EditorClassIdentifier: 
-  triggerRange: 10
-  fireRate: 0.2
+  triggerRange: 10.94
+  fireRate: 1
   damage: 10
